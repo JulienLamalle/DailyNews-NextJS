@@ -13,7 +13,7 @@ const HeroBanner = () => {
       <div className="pt-24">
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
           <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-            <p className="uppercase tracking-loose w-full text-white">Vos acutalités...</p>
+            <p className="uppercase tracking-loose w-full text-white">Vos actualités...</p>
             <h1 className="my-4 text-5xl font-bold leading-tight text-white">
               Suivez les dernières actualités et réagissez à celles-ci...
             </h1>

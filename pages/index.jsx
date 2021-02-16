@@ -38,9 +38,9 @@ export default function Home({data}) {
 }
 
 export const getServerSideProps = async (context) => {
-  const url = `http://newsapi.org/v2/top-headlines?country=fr&apikey=${process.env.NEWS_APIKEY}`
+  const url = `https://newsapi.org/v2/top-headlines?country=fr&apikey=${process.env.NEWS_APIKEY}`
   const { data } = await axios.get(url)
-  console.log(data)
+  
   return {
     props: {
       data

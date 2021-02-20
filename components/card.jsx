@@ -39,7 +39,9 @@ const Card = ({ data }) => {
                   </button>
                 </Link>
                 <div className="text-sm">
-                  <p className="text-gray-900 leading-none">{post.author}</p>
+                  {post.author &&
+                    <p className="text-gray-900 leading-none">{post.author.slice(0, 25)}</p>
+                  }
                   <p className="text-gray-600">
                     {dayjs(`${post.publishedAt}`).format("DD MMMM YYYY")}
                   </p>

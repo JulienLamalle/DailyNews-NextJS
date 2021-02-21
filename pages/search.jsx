@@ -31,12 +31,24 @@ export default function Search() {
     fetchData()
   }, [])
 
-  const fetchData = () => {
-    fetch(`https://newsapi.org/v2/everything?q=${checker(query)}&from=${Date.now()}&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_APIKEY}`)
+  const fetchData = async () => {
+    const proxyUrl = 'https://thingproxy.freeboard.io/fetch/';
+    try {
+      await fetch(`${proxyUrl}https://api.aylien.com/news/stories?body=${checker(query)}&language=fr&per_page=21`, {
+      method: 'get',
+      headers: {
+        'X-AYLIEN-NewsAPI-Application-ID' : `${process.env.NEXT_PUBLIC_NEWS_APPID}`,
+        'X-AYLIEN-NewsAPI-Application-Key' : `${process.env.NEXT_PUBLIC_NEWS_APIKEY}`
+      }
+    })
     .then(response => response.json())
     .then(response => {
-      setData(response)
+      setData(response);
+      console.log(response);
     })
+    } catch(error) {
+      console.error(error)
+    }
   }
 
   return (

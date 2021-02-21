@@ -38,8 +38,15 @@ export default function Home({data}) {
 }
 
 export const getServerSideProps = async (context) => {
-  const url = `https://newsapi.org/v2/top-headlines?country=fr&apikey=${process.env.NEWS_APIKEY}`
-  const { data } = await axios.get(url)
+  const proxyUrl = 'https://thingproxy.freeboard.io/fetch/';
+  const url = `${proxyUrl}https://api.aylien.com/news/stories?language=fr&per_page=21`
+  const { data } = await axios.get(url, {
+    method: 'get',
+      headers: {
+        'X-AYLIEN-NewsAPI-Application-ID' : `${process.env.NEWS_APPID}`,
+        'X-AYLIEN-NewsAPI-Application-Key' : `${process.env.NEWS_APIKEY}`
+      }
+  })
   
   return {
     props: {

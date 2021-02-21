@@ -9,12 +9,12 @@ const Card = ({ data }) => {
   return (
     <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 gap-5 overflow-hidden break-all">
       {data &&
-        data.articles.map((post) => (
+        data.stories.map((post) => (
           <div className=" w-full lg:max-w-full lg:flex" key={post.url}>
-            {post.urlToImage ? (
+            {post.media[0] ? (
               <div
                 className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                style={{ backgroundImage: `url(${post.urlToImage})` }}
+                style={{ backgroundImage: `url(${post.media.map(image => image.url)})`}}
               ></div>
             ) : (
               <div
@@ -30,20 +30,20 @@ const Card = ({ data }) => {
                 <div className="text-gray-900 font-bold text-xl mb-2">
                   {post.title}
                 </div>
-                <p className="text-gray-700 text-base">{post.description}</p>
+                <p className="text-gray-700 text-base">{post.body.slice(0, 200)}...</p>
               </div>
               <div className="flex items-center">
-                <Link href={post.url}>
+                <Link href={post.links.permalink}>
                   <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 rounded-full">
                     Voir l'article
                   </button>
                 </Link>
                 <div className="text-sm">
-                  {post.author &&
-                    <p className="text-gray-900 leading-none">{post.author.slice(0, 25)}</p>
+                  {post.author.name &&
+                    <p className="text-gray-900 leading-none">{post.author.name.slice(0, 25)}</p>
                   }
                   <p className="text-gray-600">
-                    {dayjs(`${post.publishedAt}`).format("DD MMMM YYYY")}
+                    {dayjs(`${post.published_at}`).format("DD MMMM YYYY")}
                   </p>
                 </div>
               </div>

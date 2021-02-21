@@ -35,7 +35,6 @@ export default function Search() {
     const proxyUrl = 'https://thingproxy.freeboard.io/fetch/';
     try {
       await fetch(`https://api.aylien.com/news/stories?body=${checker(query)}&language=fr&per_page=21`, {
-      mode: 'no-cors',
       method: 'get',
       headers: {
         'X-AYLIEN-NewsAPI-Application-ID' : `${process.env.NEXT_PUBLIC_NEWS_APPID}`,

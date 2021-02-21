@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import checker from 'utils/checker';
+import axios from 'axios';
 
 //COMPONENTS 
 import Layout from '../components/layout'
 import Card from '../components/card'
 import Footer from '../components/footer'
 import Input from '../components/input';
+
 
 export default function Search() {
   const [query, setQuery] = useState('');
@@ -34,17 +36,15 @@ export default function Search() {
   const fetchData = async () => {
     const proxyUrl = 'https://thingproxy.freeboard.io/fetch/';
     try {
-      await fetch(`https://api.aylien.com/news/stories?body=${checker(query)}&language=fr&per_page=21`, {
+      await axios.get(`${proxyUrl}https://api.aylien.com/news/stories?body=${checker(query)}&language=fr&per_page=21`, {
       method: 'get',
       headers: {
         'X-AYLIEN-NewsAPI-Application-ID' : `${process.env.NEXT_PUBLIC_NEWS_APPID}`,
         'X-AYLIEN-NewsAPI-Application-Key' : `${process.env.NEXT_PUBLIC_NEWS_APIKEY}`
       }
     })
-    .then(response => response.json())
     .then(response => {
-      setData(response);
-      console.log(response);
+      setData(response.data)
     })
     } catch(error) {
       console.error(error)
